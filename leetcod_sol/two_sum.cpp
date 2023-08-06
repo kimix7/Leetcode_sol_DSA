@@ -1,5 +1,7 @@
+// brute force method 
 #include<iostream>
 #include<vector>
+#include<unordered_map>
 
 using namespace std;
     vector<int> twoSum(vector<int>& nums, int target) {
@@ -25,3 +27,26 @@ int main(){
     return 0;
 
 }
+
+
+// optimal solution is using hash map in one pass
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> numMap;
+        int n = nums.size();
+
+        for (int i = 0; i < n; i++) {
+            int complement = target - nums[i]; //For each element nums[i],
+            // calculate the complement by subtracting it from the target: complement = target - nums[i].
+            if (numMap.count(complement)) { // count function can be used to check if the element exists in the hash table
+                return {numMap[complement], i};//Check if the complement exists in the hash table. 
+                // If it does, we have found a solution.
+            }
+            numMap[nums[i]] = i;
+        }
+
+        return {}; // No solution found
+    }
+};
